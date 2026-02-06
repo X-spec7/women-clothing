@@ -1,0 +1,11 @@
+export const HERO_MAIN_IMAGE = '/images/hero-main.jpg';
+export const BRAND_STORY_IMAGE = '/images/brand-story.jpg';
+export const LIFESTYLE_EDITORIAL_IMAGE = '/images/lifestyle-editorial.jpg';
+export const CATEGORY_ACCESSORIES_IMAGE = '/images/category-accessories.jpg';
+export const CATEGORY_DRESSES_IMAGE = '/images/category-dresses.jpg';
+export const CATEGORY_TOPS_IMAGE = '/images/category-tops.jpg';
+export const CATEGORY_OUTERWEAR_IMAGE = '/images/category-outerwear.jpg';
+export const PRODUCT_1_IMAGE = '/images/product-1.jpg';
+export const PRODUCT_2_IMAGE = '/images/product-2.jpg';
+export const PRODUCT_3_IMAGE = '/images/product-3.jpg';
+export const PRODUCT_4_IMAGE = '/images/product-4.jpg';
