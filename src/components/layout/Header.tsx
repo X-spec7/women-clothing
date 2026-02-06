@@ -4,23 +4,26 @@ import { useState } from "react";
 import Link from "next/link";
 import { Search, ShoppingBag, Menu, X, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import LanguageSwitcher from "./LanguageSwitcher";
+import type { Lang } from "@/i18n/lang";
+import { t } from "@/i18n/t";
 
-const Header = () => {
+const Header = ({ lang }: { lang: Lang }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: "Nowości", href: "/shop?filter=new" },
-    { name: "Sukienki", href: "/shop?category=dresses" },
-    { name: "Bluzki", href: "/shop?category=tops" },
-    { name: "Okrycia", href: "/shop?category=outerwear" },
-    { name: "Akcesoria", href: "/shop?category=accessories" },
+    { name: t(lang, "header.nav.new"), href: "/shop?filter=new" },
+    { name: t(lang, "header.nav.dresses"), href: "/shop?category=dresses" },
+    { name: t(lang, "header.nav.tops"), href: "/shop?category=tops" },
+    { name: t(lang, "header.nav.outerwear"), href: "/shop?category=outerwear" },
+    { name: t(lang, "header.nav.accessories"), href: "/shop?category=accessories" },
   ];
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       {/* Top bar */}
       <div className="bg-foreground text-background text-center py-2 text-xs tracking-widest font-body">
-        DARMOWA DOSTAWA OD 500 ZŁ • BEZPŁATNE ZWROTY
+        {t(lang, "header.topbar")}
       </div>
 
       <div className="container">
@@ -29,7 +32,7 @@ const Header = () => {
           <button
             className="md:hidden p-2 -ml-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Menu"
+            aria-label={t(lang, "header.menu")}
           >
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -54,6 +57,9 @@ const Header = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-2 md:gap-4">
+            <div className="hidden md:flex">
+              <LanguageSwitcher lang={lang} />
+            </div>
             <Button variant="ghost" size="icon" className="hidden md:flex">
               <Search className="h-5 w-5" />
             </Button>
@@ -73,6 +79,9 @@ const Header = () => {
         {isMenuOpen && (
           <nav className="md:hidden py-4 border-t border-border animate-fade-in">
             <div className="flex flex-col gap-4">
+              <div className="pb-2">
+                <LanguageSwitcher lang={lang} />
+              </div>
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -86,11 +95,11 @@ const Header = () => {
               <div className="flex gap-4 pt-4 border-t border-border">
                 <Button variant="ghost" size="sm" className="flex-1 justify-start">
                   <Search className="h-4 w-4 mr-2" />
-                  Szukaj
+                  {t(lang, "header.search")}
                 </Button>
                 <Button variant="ghost" size="sm" className="flex-1 justify-start">
                   <User className="h-4 w-4 mr-2" />
-                  Konto
+                  {t(lang, "header.account")}
                 </Button>
               </div>
             </div>

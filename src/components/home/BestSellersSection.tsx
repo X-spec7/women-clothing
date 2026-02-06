@@ -2,8 +2,10 @@ import Link from "next/link";
 import { ArrowRight, Star } from "lucide-react";
 import { getBestSellers } from "@/data/products";
 import ProductCard from "@/components/shop/ProductCard";
+import type { Lang } from "@/i18n/lang";
+import { t } from "@/i18n/t";
 
-const BestSellersSection = () => {
+const BestSellersSection = ({ lang }: { lang: Lang }) => {
   const bestSellers = getBestSellers();
 
   return (
@@ -14,15 +16,15 @@ const BestSellersSection = () => {
           <div>
             <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-body mb-2 flex items-center gap-2">
               <Star className="h-3 w-3 fill-primary text-primary" />
-              Wasze ulubione
+              {t(lang, "home.bestSellers.kicker")}
             </span>
-            <h2 className="font-display text-3xl md:text-4xl">Bestsellery</h2>
+            <h2 className="font-display text-3xl md:text-4xl">{t(lang, "home.bestSellers.title")}</h2>
           </div>
           <Link
             href="/shop?filter=bestsellers"
             className="hidden md:flex items-center gap-2 text-xs uppercase tracking-widest text-foreground hover:text-primary transition-colors group"
           >
-            Zobacz wszystkie
+            {t(lang, "home.bestSellers.viewAll")}
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -30,7 +32,7 @@ const BestSellersSection = () => {
         {/* Products Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {bestSellers.map((product) => (
-            <ProductCard key={product.id} product={product} showBadge={false} />
+            <ProductCard key={product.id} product={product} showBadge={false} lang={lang} />
           ))}
         </div>
 
@@ -39,21 +41,21 @@ const BestSellersSection = () => {
           <div>
             <div className="font-display text-3xl">15K+</div>
             <div className="text-xs uppercase tracking-wider text-muted-foreground font-body">
-              Zadowolonych klientek
+              {t(lang, "home.bestSellers.proof.customers")}
             </div>
           </div>
           <div className="hidden md:block w-px h-12 bg-border" />
           <div>
             <div className="font-display text-3xl">4.9</div>
             <div className="text-xs uppercase tracking-wider text-muted-foreground font-body">
-              Średnia ocena
+              {t(lang, "home.bestSellers.proof.rating")}
             </div>
           </div>
           <div className="hidden md:block w-px h-12 bg-border" />
           <div>
             <div className="font-display text-3xl">98%</div>
             <div className="text-xs uppercase tracking-wider text-muted-foreground font-body">
-              Poleca nas
+              {t(lang, "home.bestSellers.proof.recommend")}
             </div>
           </div>
         </div>

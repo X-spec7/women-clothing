@@ -7,6 +7,8 @@ import { SlidersHorizontal, Grid3X3, LayoutGrid } from "lucide-react";
 import ProductCard from "@/components/shop/ProductCard";
 import { Button } from "@/components/ui/button";
 import { products, categories } from "@/data/products";
+import type { Lang } from "@/i18n/lang";
+import { t } from "@/i18n/t";
 
 function getSearchParam(
   searchParams: Record<string, string | string[] | undefined> | undefined,
@@ -18,8 +20,10 @@ function getSearchParam(
 
 export default function ShopClient({
   searchParams,
+  lang,
 }: {
   searchParams?: Record<string, string | string[] | undefined>;
+  lang: Lang;
 }) {
   const categoryParam = getSearchParam(searchParams, "category");
   const filterParam = getSearchParam(searchParams, "filter");
@@ -27,29 +31,30 @@ export default function ShopClient({
 
   const { filteredProducts, pageTitle } = useMemo(() => {
     let filtered = products;
-    let title = "Wszystkie produkty";
+    let title = t(lang, "shop.allProducts");
 
     if (categoryParam) {
       filtered = products.filter((p) => p.category === categoryParam);
       const category = categories.find((c) => c.id === categoryParam);
-      title = category?.namePl || "Produkty";
+      title =
+        (lang === "pl" ? category?.namePl : category?.name) ?? t(lang, "shop.products");
     } else if (filterParam === "new") {
       filtered = products.filter((p) => p.isNew);
-      title = "Nowości";
+      title = t(lang, "shop.new");
     } else if (filterParam === "bestsellers") {
       filtered = products.filter((p) => p.isBestSeller);
-      title = "Bestsellery";
+      title = t(lang, "shop.bestsellers");
     }
 
     return { filteredProducts: filtered, pageTitle: title };
-  }, [categoryParam, filterParam]);
+  }, [categoryParam, filterParam, lang]);
 
   return (
     <div className="container py-8 md:py-12">
       {/* Breadcrumb */}
       <nav className="text-xs font-body text-muted-foreground mb-8">
         <Link href="/" className="hover:text-foreground">
-          Strona główna
+          {t(lang, "common.home")}
         </Link>
         <span className="mx-2">/</span>
         <span className="text-foreground">{pageTitle}</span>
@@ -60,7 +65,7 @@ export default function ShopClient({
         <div>
           <h1 className="font-display text-3xl md:text-4xl">{pageTitle}</h1>
           <p className="text-muted-foreground font-body text-sm mt-2">
-            {filteredProducts.length} produktów
+            {filteredProducts.length} {t(lang, "shop.productsCount")}
           </p>
         </div>
 
@@ -68,7 +73,7 @@ export default function ShopClient({
           {/* Filter Button */}
           <Button variant="outline" size="sm" className="gap-2">
             <SlidersHorizontal className="h-4 w-4" />
-            Filtry
+            {t(lang, "shop.filters")}
           </Button>
 
           {/* Grid Toggle */}
@@ -103,7 +108,9 @@ export default function ShopClient({
             className="shrink-0"
             asChild
           >
-            <Link href={`/shop?category=${category.id}`}>{category.namePl}</Link>
+            <Link href={`/shop?category=${category.id}`}>
+              {lang === "pl" ? category.namePl : category.name}
+            </Link>
           </Button>
         ))}
       </div>
@@ -115,16 +122,16 @@ export default function ShopClient({
         }`}
       >
         {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product} lang={lang} />
         ))}
       </div>
 
       {/* Empty State */}
       {filteredProducts.length === 0 && (
         <div className="text-center py-16">
-          <h3 className="font-display text-xl mb-2">Brak produktów</h3>
+          <h3 className="font-display text-xl mb-2">{t(lang, "shop.empty.title")}</h3>
           <p className="text-muted-foreground font-body">
-            Nie znaleziono produktów w tej kategorii.
+            {t(lang, "shop.empty.subtitle")}
           </p>
         </div>
       )}

@@ -2,8 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { BRAND_STORY_IMAGE } from "@/constants";
+import type { Lang } from "@/i18n/lang";
+import { t } from "@/i18n/t";
 
-const BrandStorySection = () => {
+const BrandStorySection = ({ lang }: { lang: Lang }) => {
   return (
     <section className="py-16 md:py-24 bg-secondary/30">
       <div className="container">
@@ -13,7 +15,7 @@ const BrandStorySection = () => {
             <div className="relative aspect-[4/3] overflow-hidden">
               <Image
                 src={BRAND_STORY_IMAGE}
-                alt="Atelier Polska - nasza historia"
+                alt={t(lang, "home.brandStory.alt")}
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover"
@@ -25,23 +27,21 @@ const BrandStorySection = () => {
           {/* Content */}
           <div className="max-w-lg">
             <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-body mb-4 block">
-              Nasza historia
+              {t(lang, "home.brandStory.kicker")}
             </span>
             <h2 className="font-display text-3xl md:text-4xl mb-6">
-              Tworzymy z pasją<br />
-              <span className="italic">od 2018 roku</span>
+              {t(lang, "home.brandStory.title").split("\n")[0]}
+              <br />
+              <span className="italic">{t(lang, "home.brandStory.title").split("\n")[1]}</span>
             </h2>
             <p className="text-muted-foreground font-body leading-relaxed mb-6">
-              Atelier Polska narodziło się z miłości do pięknych tkanin i polskiego
-              rzemiosła. Każdy element naszych kolekcji jest starannie projektowany
-              w Warszawie, z dbałością o najdrobniejsze detale.
+              {t(lang, "home.brandStory.p1")}
             </p>
             <p className="text-muted-foreground font-body leading-relaxed mb-8">
-              Wierzymy, że prawdziwa elegancja jest ponadczasowa. Dlatego tworzymy
-              ubrania, które będą towarzyszyć Ci przez lata.
+              {t(lang, "home.brandStory.p2")}
             </p>
             <Button variant="hero-outline" asChild>
-              <Link href="/about">Poznaj nas bliżej</Link>
+              <Link href="/about">{t(lang, "home.brandStory.cta")}</Link>
             </Button>
           </div>
         </div>

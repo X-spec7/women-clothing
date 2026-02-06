@@ -3,13 +3,18 @@ import Image from "next/image";
 import { Heart } from "lucide-react";
 import { Product } from "@/data/products";
 import { Button } from "@/components/ui/button";
+import type { Lang } from "@/i18n/lang";
+import { t } from "@/i18n/t";
 
 interface ProductCardProps {
   product: Product;
   showBadge?: boolean;
+  lang: Lang;
 }
 
-const ProductCard = ({ product, showBadge = true }: ProductCardProps) => {
+const ProductCard = ({ product, showBadge = true, lang }: ProductCardProps) => {
+  const name = lang === "pl" ? product.namePl : product.name;
+
   return (
     <div className="group">
       {/* Image Container */}
@@ -17,12 +22,12 @@ const ProductCard = ({ product, showBadge = true }: ProductCardProps) => {
         <Link
           href={`/product/${product.id}`}
           className="absolute inset-0 z-10"
-          aria-label={product.namePl}
+          aria-label={name}
         />
 
         <Image
           src={product.image}
-          alt={product.namePl}
+          alt={name}
           fill
           sizes="(min-width: 768px) 25vw, 50vw"
           className="object-cover"
@@ -33,12 +38,12 @@ const ProductCard = ({ product, showBadge = true }: ProductCardProps) => {
           <div className="absolute top-3 left-3 flex flex-col gap-2 z-20">
             {product.isNew && (
               <span className="bg-foreground text-background text-[10px] uppercase tracking-wider px-2 py-1 font-body">
-                Nowość
+                {t(lang, "product.badge.new")}
               </span>
             )}
             {product.originalPrice && (
               <span className="bg-primary text-primary-foreground text-[10px] uppercase tracking-wider px-2 py-1 font-body">
-                Wyprzedaż
+                {t(lang, "product.badge.sale")}
               </span>
             )}
           </div>
@@ -56,7 +61,7 @@ const ProductCard = ({ product, showBadge = true }: ProductCardProps) => {
         {/* Quick Add */}
         <div className="absolute bottom-0 left-0 right-0 z-20 p-3 bg-background/90 backdrop-blur-sm translate-y-full group-hover:translate-y-0 transition-transform duration-300">
           <Button variant="hero" size="sm" className="w-full">
-            Dodaj do koszyka
+            {t(lang, "product.addToCart")}
           </Button>
         </div>
       </div>
@@ -67,7 +72,7 @@ const ProductCard = ({ product, showBadge = true }: ProductCardProps) => {
           href={`/product/${product.id}`}
           className="block font-display text-sm hover:text-primary transition-colors"
         >
-          {product.namePl}
+          {name}
         </Link>
         <div className="flex items-center gap-2 font-body text-sm">
           <span className="font-medium">{product.price} zł</span>

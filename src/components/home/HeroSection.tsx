@@ -2,15 +2,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { HERO_MAIN_IMAGE } from "@/constants";
+import type { Lang } from "@/i18n/lang";
+import { t } from "@/i18n/t";
 
-const HeroSection = () => {
+const HeroSection = ({ lang }: { lang: Lang }) => {
   return (
     <section className="relative min-h-[85vh] flex items-center">
       {/* Background Image */}
       <div className="absolute inset-0 overflow-hidden">
         <Image
           src={HERO_MAIN_IMAGE}
-          alt="Kolekcja wiosna 2025"
+          alt={t(lang, "home.hero.alt")}
           fill
           priority
           sizes="100vw"
@@ -23,22 +25,22 @@ const HeroSection = () => {
       <div className="container relative z-10">
         <div className="max-w-lg animate-slide-up">
           <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-body mb-4 block">
-            Kolekcja Wiosna/Lato 2025
+            {t(lang, "home.hero.collection")}
           </span>
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-tight mb-6">
-            Elegancja<br />
-            <span className="italic">w każdym detalu</span>
+            {t(lang, "home.hero.title").split("\n")[0]}
+            <br />
+            <span className="italic">{t(lang, "home.hero.title").split("\n")[1]}</span>
           </h1>
           <p className="text-muted-foreground font-body text-lg mb-8 leading-relaxed">
-            Odkryj nową kolekcję inspirowaną polską tradycją rzemieślniczą
-            i współczesnym minimalizmem.
+            {t(lang, "home.hero.subtitle")}
           </p>
           <div className="flex flex-wrap gap-4">
             <Button variant="hero" size="xl" asChild>
-              <Link href="/shop">Odkryj kolekcję</Link>
+              <Link href="/shop">{t(lang, "home.hero.cta.shop")}</Link>
             </Button>
             <Button variant="hero-outline" size="xl" asChild>
-              <Link href="/about">Nasza historia</Link>
+              <Link href="/about">{t(lang, "home.hero.cta.about")}</Link>
             </Button>
           </div>
         </div>

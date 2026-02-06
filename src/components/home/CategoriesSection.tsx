@@ -6,43 +6,46 @@ import {
   CATEGORY_ACCESSORIES_IMAGE,
   CATEGORY_OUTERWEAR_IMAGE
 } from "@/constants";
+import type { Lang } from "@/i18n/lang";
+import { t } from "@/i18n/t";
+import type { MessageKey } from "@/i18n/messages";
 
 const categories = [
   {
     id: "dresses",
-    name: "Sukienki",
+    nameKey: "home.categories.dresses" satisfies MessageKey,
+    descKey: "home.categories.dressesDesc" satisfies MessageKey,
     image: CATEGORY_DRESSES_IMAGE,
-    description: "Elegancja na każdą okazję",
   },
   {
     id: "tops",
-    name: "Bluzki i Topy",
+    nameKey: "home.categories.tops" satisfies MessageKey,
+    descKey: "home.categories.topsDesc" satisfies MessageKey,
     image: CATEGORY_TOPS_IMAGE,
-    description: "Codzienne piękno",
   },
   {
     id: "outerwear",
-    name: "Okrycia wierzchnie",
+    nameKey: "home.categories.outerwear" satisfies MessageKey,
+    descKey: "home.categories.outerwearDesc" satisfies MessageKey,
     image: CATEGORY_OUTERWEAR_IMAGE,
-    description: "Styl na chłodniejsze dni",
   },
   {
     id: "accessories",
-    name: "Akcesoria",
+    nameKey: "home.categories.accessories" satisfies MessageKey,
+    descKey: "home.categories.accessoriesDesc" satisfies MessageKey,
     image: CATEGORY_ACCESSORIES_IMAGE,
-    description: "Dopełnienie stylizacji",
   },
-];
+] as const;
 
-const CategoriesSection = () => {
+const CategoriesSection = ({ lang }: { lang: Lang }) => {
   return (
     <section className="py-16 md:py-24 bg-secondary/30">
       <div className="container">
         <div className="text-center mb-12">
           <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-body mb-2 block">
-            Przeglądaj
+            {t(lang, "home.categories.kicker")}
           </span>
-          <h2 className="font-display text-3xl md:text-4xl">Kategorie</h2>
+          <h2 className="font-display text-3xl md:text-4xl">{t(lang, "home.categories.title")}</h2>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
@@ -54,7 +57,7 @@ const CategoriesSection = () => {
             >
               <Image
                 src={category.image}
-                alt={category.name}
+                alt={t(lang, category.nameKey)}
                 fill
                 sizes="(min-width: 768px) 25vw, 50vw"
                 className="object-cover"
@@ -62,10 +65,10 @@ const CategoriesSection = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-background">
                 <h3 className="font-display text-lg md:text-xl mb-1">
-                  {category.name}
+                  {t(lang, category.nameKey)}
                 </h3>
                 <p className="text-xs text-background/70 font-body hidden md:block">
-                  {category.description}
+                  {t(lang, category.descKey)}
                 </p>
               </div>
             </Link>

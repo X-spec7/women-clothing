@@ -3,8 +3,12 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { BRAND_STORY_IMAGE, HERO_MAIN_IMAGE } from "@/constants";
+import { getLang } from "@/i18n/server";
+import { t } from "@/i18n/t";
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const lang = await getLang();
+
   return (
     <>
       {/* Hero */}
@@ -12,15 +16,15 @@ export default function AboutPage() {
         <div className="absolute inset-0">
           <Image
             src={BRAND_STORY_IMAGE}
-            alt="O nas"
+            alt={t(lang, "about.hero.title")}
             fill priority className="object-cover"
           />
           <div className="absolute inset-0 bg-foreground/50" />
         </div>
         <div className="relative z-10 text-center text-background">
-          <h1 className="font-display text-4xl md:text-6xl mb-4">Nasza historia</h1>
+          <h1 className="font-display text-4xl md:text-6xl mb-4">{t(lang, "about.hero.title")}</h1>
           <p className="text-background/80 font-body max-w-xl mx-auto px-4">
-            Pasja, rzemiosło i polska elegancja
+            {t(lang, "about.hero.subtitle")}
           </p>
         </div>
       </section>
@@ -30,21 +34,16 @@ export default function AboutPage() {
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
             <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-body mb-4 block">
-              Od 2018 roku
+              {t(lang, "about.story.kicker")}
             </span>
             <h2 className="font-display text-3xl md:text-4xl mb-8">
-              Tworzymy z myślą o Tobie
+              {t(lang, "about.story.title")}
             </h2>
             <p className="text-muted-foreground font-body leading-relaxed mb-6">
-              Atelier Polska powstało z prostej idei: stworzyć markę odzieżową, która łączy
-              najwyższą jakość europejskich tkanin z polskim rzemiosłem i nowoczesnym designem.
-              Nasza założycielka, Maria Kowalska, przez lata pracowała w międzynarodowych domach
-              mody, zanim zdecydowała się wrócić do Polski i założyć własną markę.
+              {t(lang, "about.story.p1")}
             </p>
             <p className="text-muted-foreground font-body leading-relaxed">
-              Dziś projektujemy i szyjemy w naszym warszawskim atelier, współpracując z najlepszymi
-              polskimi krawcami i rzemieślnikami. Każdy element naszych kolekcji jest starannie
-              przemyślany - od wyboru materiałów po ostatni szew.
+              {t(lang, "about.story.p2")}
             </p>
           </div>
         </div>
@@ -53,36 +52,33 @@ export default function AboutPage() {
       {/* Values */}
       <section className="py-16 md:py-24 bg-secondary/30">
         <div className="container">
-          <h2 className="font-display text-3xl md:text-4xl text-center mb-12">Nasze wartości</h2>
+          <h2 className="font-display text-3xl md:text-4xl text-center mb-12">{t(lang, "about.values.title")}</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center p-8">
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                 <span className="font-display text-2xl text-primary">01</span>
               </div>
-              <h3 className="font-display text-xl mb-4">Jakość</h3>
+              <h3 className="font-display text-xl mb-4">{t(lang, "about.values.quality")}</h3>
               <p className="text-muted-foreground font-body text-sm leading-relaxed">
-                Używamy tylko najlepszych europejskich tkanin. Każdy produkt przechodzi
-                wieloetapową kontrolę jakości.
+                {t(lang, "about.values.qualityP")}
               </p>
             </div>
             <div className="text-center p-8">
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                 <span className="font-display text-2xl text-primary">02</span>
               </div>
-              <h3 className="font-display text-xl mb-4">Zrównoważony rozwój</h3>
+              <h3 className="font-display text-xl mb-4">{t(lang, "about.values.sustainability")}</h3>
               <p className="text-muted-foreground font-body text-sm leading-relaxed">
-                Dbamy o środowisko. Produkujemy w Polsce, minimalizując ślad węglowy i wspierając
-                lokalne społeczności.
+                {t(lang, "about.values.sustainabilityP")}
               </p>
             </div>
             <div className="text-center p-8">
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                 <span className="font-display text-2xl text-primary">03</span>
               </div>
-              <h3 className="font-display text-xl mb-4">Ponadczasowość</h3>
+              <h3 className="font-display text-xl mb-4">{t(lang, "about.values.timeless")}</h3>
               <p className="text-muted-foreground font-body text-sm leading-relaxed">
-                Projektujemy ubrania, które nie wychodzą z mody. Inwestycja w jakość, która służy
-                przez lata.
+                {t(lang, "about.values.timelessP")}
               </p>
             </div>
           </div>
@@ -96,7 +92,7 @@ export default function AboutPage() {
             <div className="relative aspect-[4/3] overflow-hidden">
               <Image
                 src={HERO_MAIN_IMAGE}
-                alt="Nasze atelier"
+                alt={t(lang, "about.atelier.title")}
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover"
@@ -104,21 +100,17 @@ export default function AboutPage() {
             </div>
             <div>
               <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-body mb-4 block">
-                Warszawa, Polska
+                {t(lang, "about.atelier.kicker")}
               </span>
-              <h2 className="font-display text-3xl md:text-4xl mb-6">Nasze atelier</h2>
+              <h2 className="font-display text-3xl md:text-4xl mb-6">{t(lang, "about.atelier.title")}</h2>
               <p className="text-muted-foreground font-body leading-relaxed mb-6">
-                W sercu Warszawy mieści się nasze atelier - miejsce, gdzie rodzą się wszystkie nasze
-                kolekcje. To tutaj projektujemy, szyjemy i pakujemy każde zamówienie z najwyższą
-                starannością.
+                {t(lang, "about.atelier.p1")}
               </p>
               <p className="text-muted-foreground font-body leading-relaxed mb-8">
-                Nasz zespół to ponad 30 utalentowanych osób - od projektantów, przez krawców, po
-                specjalistów ds. obsługi klienta. Każdy z nich dzieli naszą pasję do tworzenia
-                pięknych rzeczy.
+                {t(lang, "about.atelier.p2")}
               </p>
               <Button variant="hero-outline" asChild>
-                <Link href="/contact">Skontaktuj się z nami</Link>
+                <Link href="/contact">{t(lang, "about.atelier.cta")}</Link>
               </Button>
             </div>
           </div>
